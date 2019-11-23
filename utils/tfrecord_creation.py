@@ -1,0 +1,70 @@
+# Copyright 2018 The TensorFlow Authors. All Rights Reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# ==============================================================================
+r"""Utilities for creating TFRecords of TF examples for the Open Images dataset.
+"""
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+
+import tensorflow as tf
+import skimage.io as ski_io
+import os
+from . import tfrecord_type
+import numpy as np
+import cv2
+
+
+def inject_fn_img(img_path, resize=None):
+
+    if not os.path.exists(img_path):
+        return None
+    
+    # all images save as png encoding
+    img = cv2.imread(img_path, -1)
+    if resize is not None:
+        img = cv2.resize(img, resize, interpolation=cv2.INTER_LINEAR)
+    _, img_encoded = cv2.imencode('.png', img)
+    img_encoded = img_encoded.tobytes()
+
+    channels = 1 if len(img.shape) == 2 else img.shape[2]
+
+    feature_dict = {
+        'image/height': tfrecord_type.int64_feature(img.shape[0]),
+        'image/width': tfrecord_type.int64_feature(img.shape[1]),
+        'image/channels': tfrecord_type.int64_feature(channels),
+        'image/filename': tfrecord_type.bytes_feature(os.path.basename(img_path).encode('utf8')),
+        'image/image': tfrecord_type.bytes_feature(img_encoded),
+        'image/format': tfrecord_type.bytes_feature(".png".encode('utf8'))
+    }
+    return feature_dict
+
+def open_sharded_output_tfrecords(exit_stack, base_path, num_shards):
+    """Opens all TFRecord shards for writing and adds them to an exit stack.
+
+    Args:
+        exit_stack: A context2.ExitStack used to automatically closed the TFRecords
+          opened in this function.
+        base_path: The base path for all shards
+        num_shards: The number of shards
+
+    Returns:
+        The list of opened TFRecords. Position k in the list corresponds to shard k.
+    """
+    tf_record_output_filenames = ['{}-{:05d}-of-{:05d}'.format(base_path, idx, num_shards)
+                                  for idx in range(num_shards)]
+    tfrecords = [exit_stack.enter_context(tf.python_io.TFRecordWriter(file_name))
+                 for file_name in tf_record_output_filenames]
+
+    return tfrecords
