@@ -2,6 +2,8 @@
 
 InstNetv1: Instance Segmentation of Biomedical Images with an Object-Aware Embedding Learned with Local Constraints
 
+[InstNetv2](https://github.com/looooongChen/InstNetv2) for imporved version.
+
 @inproceedings{LongMACCAIInstance,  
 &nbsp;&nbsp; author = {Long Chen, Martin Strauch, Dorit Merhof},  
 &nbsp;&nbsp; title = {Instance Segmentation of Biomedical Images with an Object-Aware Embedding Learned with Local Constraints},  
@@ -9,13 +11,13 @@ InstNetv1: Instance Segmentation of Biomedical Images with an Object-Aware Embed
 &nbsp;&nbsp; year = {2019},  
 }  
 
-ref to [InstNetv2](https://github.com/looooongChen/InstNetv2) for imporved version.
+## approach:
 
-<img src="./doc/schematic.png" width="800">
+<img src="./doc/schematic.png" width="600">
 
 To decouple the embedding branch and the distance regression branch, we construct a decode path for each. Compared to the sturcture in the paper (two branches on the same feature map), the training is of decoupled path is more robust.  
 
-<img src="./doc/net.png" width="800">
+<img src="./doc/net.png" width="600">
 
 
 ## links:

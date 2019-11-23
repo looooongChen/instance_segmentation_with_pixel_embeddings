@@ -3,3 +3,4 @@ utils/__pycache__
 tfrecords_check
 tfrecords
 model*
+test
