@@ -6,7 +6,7 @@ This repository (InstNetv1) contains the implementation of instance segmentation
 
 - Long Chen, Martin Strauch and Dorit Merhof.  
 Instance Segmentation of Biomedical Images with an Object-Aware Embedding Learned with Local Constraints \[[Paper](https://www.researchgate.net/publication/336396370_Instance_Segmentation_of_Biomedical_Images_with_an_Object-Aware_Embedding_Learned_with_Local_Constraints)\]  
-International Conference on Medical Image Computing and Computer-Assisted Intervention (MICCAI), Granada, Spain, September 2018.
+International Conference on Medical Image Computing and Computer-Assisted Intervention (MICCAI) 2019.
 
 Please [cite the paper(s)](#how-to-cite) if you are using this code in your research.
 
