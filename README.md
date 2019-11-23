@@ -13,12 +13,15 @@ InstNetv1: Instance Segmentation of Biomedical Images with an Object-Aware Embed
 
 ## approach:
 
+<p align="center">
 <img src="./doc/schematic.png" width="600">
+<p>
 
 To decouple the embedding branch and the distance regression branch, we construct a decode path for each. Compared to the sturcture in the paper (two branches on the same feature map), the training is of decoupled path is more robust.  
 
+<p align="center">
 <img src="./doc/net.png" width="600">
-
+<p>
 
 ## links:
 [Institute of Imaging & Computer Vision, RWTH Aachen University](https://www.lfb.rwth-aachen.de/en/)  
@@ -80,4 +83,6 @@ Since the file structure varies from dataset to dataset, we only provide a ```Ev
 # Results
 
 ## Comparision with other methods
+<p align="center">
 <img src="./doc/comparision.png" width="800">
+<p>
