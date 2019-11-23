@@ -1,6 +1,8 @@
 # instance_segmentation_with_pixel_embeddings
 
-InstNetv1: Instance Segmentation of Biomedical Images with an Object-Aware Embedding Learned with Local Constraints [PDF](https://www.researchgate.net/publication/336396370_Instance_Segmentation_of_Biomedical_Images_with_an_Object-Aware_Embedding_Learned_with_Local_Constraints)
+[Institute of Imaging & Computer Vision, RWTH Aachen University](https://www.lfb.rwth-aachen.de/en/)  
+
+InstNetv1: Instance Segmentation of Biomedical Images with an Object-Aware Embedding Learned with Local Constraints \[[Paper](https://www.researchgate.net/publication/336396370_Instance_Segmentation_of_Biomedical_Images_with_an_Object-Aware_Embedding_Learned_with_Local_Constraints)\]
 
 [InstNetv2](https://github.com/looooongChen/InstNetv2) for imporved version.
 
@@ -10,8 +12,6 @@ InstNetv1: Instance Segmentation of Biomedical Images with an Object-Aware Embed
 &nbsp;&nbsp; booktitle = {MICCAI 2019},  
 &nbsp;&nbsp; year = {2019},  
 }
-
-[Institute of Imaging & Computer Vision, RWTH Aachen University](https://www.lfb.rwth-aachen.de/en/)  
 
 ## approach:
 
