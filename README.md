@@ -2,7 +2,7 @@
 
 [Institute of Imaging & Computer Vision, RWTH Aachen University](https://www.lfb.rwth-aachen.de/en/)  
 
-This repository (InstNetv1) contains the implementation of instance segmentation approach described in the papers:
+This repository (InstSegv1) contains the implementation of instance segmentation approach described in the papers:
 
 - Long Chen, Martin Strauch and Dorit Merhof.  
 Instance Segmentation of Biomedical Images with an Object-Aware Embedding Learned with Local Constraints \[[Paper](https://www.researchgate.net/publication/336396370_Instance_Segmentation_of_Biomedical_Images_with_an_Object-Aware_Embedding_Learned_with_Local_Constraints)\]  
@@ -10,7 +10,7 @@ International Conference on Medical Image Computing and Computer-Assisted Interv
 
 Please [cite the paper(s)](#how-to-cite) if you are using this code in your research.
 
-Check [InstNetv2](https://github.com/looooongChen/InstNetv2) for imporved version.
+Check [InstSegv2](https://github.com/looooongChen/InstSegv2) for imporved version.
 
 ## Overview:
 
