@@ -5,7 +5,7 @@ from datetime import datetime
 import tensorflow as tf
 from fn_loss import build_embedding_loss, build_dist_loss
 from fn_head import build_embedding_head, build_dist_head
-from fn_backbone import build_d9, build_d7
+from fn_backbone import build_doubleHead
 from preprocess import extract_fn
 
 import sys
@@ -18,11 +18,7 @@ class LocalDisNet(object):
 
     def __init__(self, sess, flags):
         self.sess = sess
-        
-        if flags.architecture == 'd7':
-            self.backbone_fn = build_d7
-        else:
-            self.backbone_fn = build_d9
+        self.backbone_fn = build_doubleHead
 
         self.flags = flags
         self.dtype = tf.float32
@@ -233,6 +229,7 @@ class LocalDisNet(object):
             seeds = pp.get_seeds(dist, thres=seed_thres)
             # seed to instance mask
             emb = pp.smooth_emb(embs[i], radius=3)
+            # emb = embs[i]
             seg = pp.mask_from_seeds(emb, seeds, similarity_thres=similarity_thres)
             # remove noise
             seg = pp.remove_noise(seg, dist, min_size=10, min_intensity=0.1)
@@ -242,7 +239,7 @@ class LocalDisNet(object):
             for i in range(len(segs)):
                 segs[i] = cv2.resize(segs[i], (imgs[i].shape[0], imgs[i].shape[1]), interpolation=cv2.INTER_NEAREST)
 
-        return segs, embs
+        return segs
 
     
     

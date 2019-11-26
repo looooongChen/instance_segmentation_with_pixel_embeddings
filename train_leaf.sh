@@ -1,7 +1,6 @@
 #!/bin/bash
 
 phase="train"
-architecture="d9"
 dist_branch=True
 include_bg=True
 embedding_dim=16
@@ -22,7 +21,6 @@ cd /work/scratch/chen/instance_segmentation_with_pixel_embeddings
 
 /home/staff/chen/miniconda3/envs/tf/bin/python /work/scratch/chen/instance_segmentation_with_pixel_embeddings/main.py \
 			--phase="$phase" \
-			--architecture="$architecture" \
 			--dist_branch="$dist_branch" \
 			--include_bg="$include_bg" \
 			--embedding_dim="$embedding_dim" \

@@ -1,24 +1,24 @@
 import tensorflow as tf
 
-# def weight_fg(label):
-#     """
-#     label: [B W H 1]
-#     """
-#     pos = tf.greater(label, 0)
-#     neg = tf.equal(label, 0)
-#     num_pos = tf.count_nonzero(pos, axis=[1,2,3], keepdims=True, dtype=tf.float32)
-#     num_neg = tf.count_nonzero(neg, axis=[1,2,3], keepdims=True, dtype=tf.float32)
-#     total = num_neg + num_pos
-#     return tf.cast(pos, dtype=tf.float32)*total/(2*num_pos) \
-#            + tf.cast(neg, dtype=tf.float32)*total/(2*num_neg)
+def weight_fg(label):
+    """
+    label: [B W H 1]
+    """
+    pos = tf.greater(label, 0)
+    neg = tf.equal(label, 0)
+    num_pos = tf.count_nonzero(pos, axis=[1,2,3], keepdims=True, dtype=tf.float32)
+    num_neg = tf.count_nonzero(neg, axis=[1,2,3], keepdims=True, dtype=tf.float32)
+    total = num_neg + num_pos
+    return tf.cast(pos, dtype=tf.float32)*total/(2*num_pos) \
+           + tf.cast(neg, dtype=tf.float32)*total/(2*num_neg)
 
 def build_dist_loss(dist, dist_gt, name='dist_reg_loss'):
 
     with tf.variable_scope(name):
-        # weights = weight_fg(dist_gt)
+        weights = weight_fg(dist_gt)
         dist_gt = dist_gt * 10
-        # loss = tf.square(dist-dist_gt)*weights
-        loss = tf.square(dist-dist_gt)
+        loss = tf.square(dist-dist_gt)*weights
+        # loss = tf.square(dist-dist_gt)
 
         return tf.reduce_mean(loss)
 

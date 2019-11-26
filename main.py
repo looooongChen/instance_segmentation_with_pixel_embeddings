@@ -27,38 +27,6 @@ def main(_):
 
         if not os.path.exists(tf_flags.test_res):
             os.makedirs(tf_flags.test_res)
-        
-        # # load dataset from tfrecords
-        # tf_dir = "./tfrecords/U2OScell/val"
-        # val_tf = [os.path.join(tf_dir, f) for f in os.listdir(tf_dir)]
-        # # build dataset
-        # val_ds = tf.data.TFRecordDataset(val_tf)
-        # preprocess_f = lambda sample: extract_fn(sample, 
-        #                                          image_channels=tf_flags.image_channels,
-        #                                          image_depth=tf_flags.image_depth,
-        #                                          dist_map=tf_flags.dist_branch)
-        # val_ds = val_ds.map(preprocess_f).batch(1)
-        # val_iterator = val_ds.make_one_shot_iterator()
-        # val_example = val_iterator.get_next()
-        # with tf.Session() as sess:
-        #     model = LocalDisNet(sess, tf_flags)
-        #     model.restore_model()
-        #     count = 1
-        #     while True:
-        #         print(count)
-        #         sample = sess.run(val_example)
-        #         img = np.squeeze(sample['image/image'])
-        #         segs, embs = model.segment_from_seed([img], seed_thres=0.7, similarity_thres=0.7, resize=False)
-        #         e = embs[0,:,:,0:3]
-        #         e = 255*(e-e.min())/(e.max()-e.min())
-        #         img =(img-img.min())/(img.max()-img.min())*255
-        #         imsave(os.path.join(tf_flags.test_res, 'img_'+str(count)+'.png'), img.astype(np.uint8))
-        #         imsave(os.path.join(tf_flags.test_res, 'embedding_'+str(count)+'.png'), e.astype(np.uint8))
-        #         save_indexed_png(os.path.join(tf_flags.test_res, 'seg_'+str(count)+'.png'), segs[0].astype(np.uint8))
-        #         count += 1
-        #         if count == 10:
-        #             break
-
 
         img_path = {f: os.path.join(tf_flags.test_dir, f) for f in os.listdir(tf_flags.test_dir)}
 
@@ -70,12 +38,8 @@ def main(_):
             model.restore_model()
             for f_name, f_path in img_path.items():
                 img = imread(f_path)
-                segs, embs = model.segment_from_seed([img], seed_thres=0.7, similarity_thres=0.7, resize=False)
-                e = embs[0,:,:,0:3]
-                e = 255*(e-e.min())/(e.max()-e.min())
-                img =(img-img.min())/(img.max()-img.min())*255
-                imsave(os.path.join(tf_flags.test_res, os.path.splitext(f_name)[0]+'_img.png'), img.astype(np.uint8))
-                imsave(os.path.join(tf_flags.test_res, os.path.splitext(f_name)[0]+'_emb.png'), e.astype(np.uint8))
+                print("Processing: ", f_path)
+                segs = model.segment_from_seed([img], seed_thres=0.7, similarity_thres=0.7, resize=True)
                 save_indexed_png(os.path.join(tf_flags.test_res, os.path.splitext(f_name)[0]+'_seg.png'), segs[0].astype(np.uint8))
 
     elif tf_flags.phase == 'evaluation':
@@ -89,8 +53,6 @@ if __name__ == '__main__':
                                "model phase: train/test/evaluation")
 
     # architecture config
-    tf.app.flags.DEFINE_string("architecture", "d9",
-                               "backbone network, d9 for standard U-Net, d7 for simplified U-Net")
     tf.app.flags.DEFINE_boolean("dist_branch", True,
                                 "whether train dist regression branch or not")
     tf.app.flags.DEFINE_boolean("include_bg", True,
@@ -124,9 +86,9 @@ if __name__ == '__main__':
                                 "validation period.")
 
     # test config
-    tf.app.flags.DEFINE_string("test_dir", "./CVPPP_test/A4_test",
+    tf.app.flags.DEFINE_string("test_dir", "./test/cvppp_test",
                                "evaluation dataset directory")
-    tf.app.flags.DEFINE_string("test_res", "./CVPPP_test/A4_res",
+    tf.app.flags.DEFINE_string("test_res", "./test/cvppp_res",
                                "evaluation dataset directory")
     
     tf.app.run(main=main)

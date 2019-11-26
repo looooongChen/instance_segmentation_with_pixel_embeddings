@@ -20,17 +20,6 @@ def smooth_emb(emb, radius):
     emb = emb / np.linalg.norm(emb, axis=-1, keepdims=True)
     return emb
 
-# def augmax_emb(emb, min_sz=0):
-#     emb = np.squeeze(emb)
-#     L = np.argmax(emb, axis=-1)
-#     L = label(L)
-#     props = regionprops(L)
-#     for p in props:
-#         if p['area'] < min_sz:
-#             coords = p['coords']
-#             L[coords[:,0], coords[:,1]]=0
-#     return label(L)
-
 
 def get_seeds(dist_map, thres=0.7):
     c = np.squeeze(dist_map)
