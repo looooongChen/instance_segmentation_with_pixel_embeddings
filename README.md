@@ -10,9 +10,9 @@ International Conference on Medical Image Computing and Computer-Assisted Interv
 
 Please [cite the paper(s)](#how-to-cite) if you are using this code in your research.
 
-Check [InstSegv1](https://github.com/looooongChen/InstSegV1) for reconstructed code. New code is easier to use and tested under tensorflow 2.x
+Check [InstSegV1](https://github.com/looooongChen/InstSegV1) for reconstructed code. New code is easier to use and tested under tensorflow 2.x
 
-Check [InstSegv2](https://github.com/looooongChen/InstSegV2) for imporved version.
+Check [InstSegV2](https://github.com/looooongChen/InstSegV2) for imporved version.
 
 ## Overview:
 
